@@ -7,7 +7,12 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -26,7 +31,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
+const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -52,11 +57,44 @@ const Section = ({children, title}): Node => {
   );
 };
 
-const App: () => Node = () => {
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '595078339994-uteuhhb7o0961q6funtmgb2n0jp39p90.apps.googleusercontent.com',
+      offlineAccess: true,
+    });
+  }, []);
+
+  const GoogleSingUp = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      await GoogleSignin.signIn().then(async result => {
+        console.log(result);
+        setUser(result);
+      });
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        alert('User cancelled the login flow !');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        alert('Signin in progress');
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        alert('Google play services not available or outdated !');
+        // play services not available or outdated
+      } else {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -74,6 +112,13 @@ const App: () => Node = () => {
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
           </Section>
+          <GoogleSigninButton
+            style={{width: 192, height: 48}}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={GoogleSingUp}
+          />
+          <Text>{user && JSON.stringify(user)}</Text>
           <Section title="See Your Changes">
             <ReloadInstructions />
           </Section>
