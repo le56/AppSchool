@@ -6,59 +6,19 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
-
-import {Image, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-// screens
-import {Onboarding, DestinationDetail} from './screens/';
+import React from 'react';
+import {Image, TouchableOpacity} from 'react-native';
+import {COLORS, icons, SIZES} from './constants';
 // extra screens
 import Tabs from './navigation/tabs';
-
-import {icons, COLORS, SIZES} from './constants';
+// screens
+import {DestinationDetail, Onboarding} from './screens/';
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [user, setUser] = React.useState(null);
-
-  React.useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        '595078339994-uteuhhb7o0961q6funtmgb2n0jp39p90.apps.googleusercontent.com',
-      offlineAccess: true,
-    });
-  }, []);
-
-  const GoogleSingUp = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      await GoogleSignin.signIn().then(async result => {
-        console.log(result);
-        setUser(result);
-      });
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-        alert('User cancelled the login flow !');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        alert('Signin in progress');
-        // operation (f.e. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        alert('Google play services not available or outdated !');
-        // play services not available or outdated
-      } else {
-        console.log(error);
-      }
-    }
-  };
-
   return (
     <NavigationContainer>
       <Stack.Navigator
