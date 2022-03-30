@@ -6,7 +6,9 @@ export const onboardingImage = require("../assets/images/onboarding_image.jpg");
 export const skiVilla = require("../assets/images/ski_villa.jpg");
 export const skiVillaBanner = require("../assets/images/ski_villa_banner.jpg");
 export const background = require("../assets/images/background.jpg");
+export const logo = require("../assets/images/logo.png");
 export default {
+    logo,
     background,
     beach,
     climbingHills,
