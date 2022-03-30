@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "595078339994",
+    "project_id": "appschool-b1028",
+    "storage_bucket": "appschool-b1028.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595078339994:android:ed2140a860c23e373c2e23",
+        "android_client_info": {
+          "package_name": "com.appschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595078339994-tv3b033ghoagfm1spnk7ps1sbq1hkim3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appschool",
+            "certificate_hash": "2ade41bd174db5c3e98f2a39b19d488ad376afa0"
+          }
+        },
+        {
+          "client_id": "595078339994-uteuhhb7o0961q6funtmgb2n0jp39p90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAQyHx9nE-Jjwa3VDz1UchXTo4IxjmGWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595078339994-uteuhhb7o0961q6funtmgb2n0jp39p90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
