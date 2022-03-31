@@ -5,52 +5,14 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  Animated,
   ImageBackground,
   FlatList,
   ScrollView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {SharedElement} from 'react-native-shared-element';
 import {images, COLORS, FONTS, SIZES, icons} from '../constants';
-import {Divider} from 'native-base';
-
-const OptionItem = ({bgColor, icon, label, onPress}) => {
-  return (
-    <TouchableOpacity
-      style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
-      onPress={onPress}>
-      <View style={[styles.shadow, {width: 60, height: 60}]}>
-        <LinearGradient
-          style={[
-            {
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 15,
-              backgroundColor: 'red',
-            },
-          ]}
-          colors={bgColor}
-          start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}}>
-          <Image
-            source={icon}
-            resizeMode="cover"
-            style={{
-              tintColor: COLORS.white,
-              width: 30,
-              height: 30,
-            }}
-          />
-        </LinearGradient>
-      </View>
-      <Text style={{marginTop: SIZES.base, color: COLORS.gray, ...FONTS.body3}}>
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-};
+import {Divider,Avatar} from 'native-base';
+import IconEntypo from 'react-native-vector-icons/Entypo';
 
 const Home = ({navigation}) => {
   const [deadline, setdeadline] = React.useState([
@@ -117,7 +79,7 @@ const Home = ({navigation}) => {
           style={[
             {
               width: 200,
-              height: 150,
+              height: 120,
               marginVertical: 10,
               backgroundColor: item.color,
               borderRadius: SIZES.radius,
@@ -222,7 +184,7 @@ const Home = ({navigation}) => {
             width: SIZES.width - SIZES.padding * 2,
             height: 120,
             backgroundColor: '#F9F9FC',
-            flexDirection:'row'
+            flexDirection: 'row',
           },
           styles.shadow,
           classes,
@@ -232,20 +194,43 @@ const Home = ({navigation}) => {
         }}>
         <View
           style={{
-            width: '30%',
+            width: '25%',
             height: '100%',
-            alignItems:'center',
-            justifyContent:'center'
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-          <Text style={{color:COLORS.black,...FONTS.h3}}>08:00</Text>
+          <Text style={{color: COLORS.black, ...FONTS.h3}}>08:00</Text>
           <Text style={{...FONTS.body4}}>AM</Text>
         </View>
         <Divider orientation="vertical" />
-        <View style={{flex:1, marginLeft:20}}>
-            <Text>{item.name}</Text>
-            <View>
-              
+        <View style={{flex:1,flexDirection: 'column',marginTop:SIZES.padding/2, marginLeft:SIZES.padding/2}}>
+          <Text style={{...FONTS.h3,color:COLORS.black, marginLeft:0}}>{item.name}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop:5
+            }}>
+            <View style={{width:32, height:32, alignItems:'center', justifyContent:'center'}}>
+            <IconEntypo name="location" size={18} />
             </View>
+            <Text style={{...FONTS.h3, flex:1,marginLeft:SIZES.padding/3}} numberOfLines={1}>
+              Viet Nam and Korea University hello
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row', alignItems:'center',marginTop:5}}>
+            <Avatar
+              bg="lightBlue.400"
+              source={{
+                uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+              }}
+                size='8'
+              >
+              <Avatar.Badge bg="green.500" />
+            </Avatar>
+            <Text style={{overflow: 'hidden',marginLeft:SIZES.padding/3,...FONTS.h4}}>
+              Ts. Lê Khánh Dương
+            </Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
