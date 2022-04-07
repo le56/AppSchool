@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useContext } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -8,12 +8,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-
 import {images, COLORS, FONTS, SIZES} from '../constants';
 
 const Onboarding = ({navigation}) => {
@@ -31,24 +29,13 @@ const Onboarding = ({navigation}) => {
     try {
       await GoogleSignin.hasPlayServices();
       await GoogleSignin.signIn().then(async result => {
-        console.log(result);
-
-        navigation.navigate('Home');
-      });
+        setUser(result.user)
+        console.log(result.user);
+      }); 
     } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-        alert('User cancelled the login flow !');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        alert('Signin in progress');
-        // operation (f.e. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        alert('Google play services not available or outdated !');
-        // play services not available or outdated
-      } else {
-        console.log(error);
-      }
+
     }
+    navigation.navigate('Home');
   };
 
   return (

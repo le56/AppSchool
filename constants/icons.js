@@ -19,8 +19,17 @@ export const train = require("../assets/icons/train_icon.png");
 export const user = require("../assets/icons/user_icon.png");
 export const villa = require("../assets/icons/villa_icon.png");
 export const wind = require("../assets/icons/wind_icon.png");
-
+export const chat = require("../assets/icons/chat_icon.png");
+export const playIcon = require("../assets/icons/play.png");
+export const timeIcon = require("../assets/icons/time.png");
+export const favourite = require("../assets/icons/favourite.png");
+export const starIcon = require("../assets/icons/star.png");
 export default {
+    starIcon,
+    favourite,
+    timeIcon,
+    playIcon,
+    chat,
     airplane,
     back,
     barMenu,

@@ -5,6 +5,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Home} from '../screens/';
 
 import {icons, COLORS} from '../constants';
+import ChatScreen from '../screens/ChatScreen';
+import BookMark from '../screens/BookMark';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +15,7 @@ const Tabs = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         headerShown: false,
-        
+
         tabBarIcon: ({focused}) => {
           const tintColor = focused ? COLORS.primary : COLORS.gray;
 
@@ -54,6 +56,18 @@ const Tabs = () => {
                   }}
                 />
               );
+            case 'Chat':
+              return (
+                <Image
+                  source={icons.chat}
+                  resizeMode="contain"
+                  style={{
+                    tintColor: tintColor,
+                    width: 30,
+                    height: 30,
+                  }}
+                />
+              );
             case 'Account':
               return (
                 <Image
@@ -71,7 +85,8 @@ const Tabs = () => {
       })}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Search" component={Home} />
-      <Tab.Screen name="Bookmark" component={Home} />
+      <Tab.Screen name="Bookmark" component={BookMark} options={{headerShown:true}}/>
+      <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Account" component={Home} />
     </Tab.Navigator>
   );
