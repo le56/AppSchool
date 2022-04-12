@@ -24,7 +24,9 @@ export const playIcon = require("../assets/icons/play.png");
 export const timeIcon = require("../assets/icons/time.png");
 export const favourite = require("../assets/icons/favourite.png");
 export const starIcon = require("../assets/icons/star.png");
+export const notification = require("../assets/icons/notification.png");
 export default {
+    notification,
     starIcon,
     favourite,
     timeIcon,

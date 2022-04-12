@@ -1,9 +1,15 @@
 import React from 'react';
-import {FlatList, Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import {
+  FlatList,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from 'react-native';
 import {Divider, Button} from 'native-base';
 import CourseCard from '../component/CourseCard';
-import {COLORS, FONTS, SIZES} from '../constants';
-import TextButton from '../component/TextButton';
+import {COLORS, FONTS, icons, SIZES} from '../constants';
 import CategoryCard from '../component/CategoryCard';
 import HorizontalCard from '../component/HorizontalCard';
 
@@ -152,7 +158,7 @@ export default function BookMark() {
         keyExtractor={item => `Course-${item.id}`}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          marginTop: SIZES.padding,
+          marginTop: SIZES.padding / 2,
         }}
         renderItem={({item, index}) => (
           <CourseCard
@@ -185,8 +191,7 @@ export default function BookMark() {
                 category={item}
                 containerStyle={{
                   marginLeft: index == 0 ? SIZES.padding : SIZES.base,
-                  marginRight:
-                    index == categories.length - 1 ? SIZES.padding : 0,
+                  marginRight: index == categories.length - 1 ? SIZES.padding : 0,
                 }}
               />
             );
@@ -223,17 +228,44 @@ export default function BookMark() {
               />
             );
           }}
+          ItemSeparatorComponent={() => {
+            return <Divider h={0.5} />;
+          }}
         />
       </Section>
     );
   };
-
+  const renderHeader = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: 10,
+          marginBottom: 10,
+          paddingHorizontal: SIZES.padding,
+          alignItems: 'center',
+        }}>
+        <View style={{flex: 1}}>
+          <Text style={{...FONTS.h2, color: COLORS.black}}>BookMark</Text>
+          <Text>Monday, 8th Sept 2022</Text>
+        </View>
+        <TouchableOpacity>
+          <Image source={icons.notification} resizeMode="contain" style={{width:25,height:25}} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      {renderCourse()}
-      <Divider my="3" h={0.5} />
-      {renderCategory()}
-      {renderPopularCourse()}
-    </ScrollView>
+    <View style={{flex: 1}}>
+      {renderHeader()}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {renderCourse()}
+        <View style={{marginHorizontal: SIZES.padding}}>
+          <Divider my="3" h={0.5} />
+        </View>
+        {renderCategory()}
+        {renderPopularCourse()}
+      </ScrollView>
+    </View>
   );
 }
