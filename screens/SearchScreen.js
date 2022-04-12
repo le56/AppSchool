@@ -1,4 +1,4 @@
-import {View, Text, Animated,Image} from 'react-native';
+import {View, Text, Animated, Image} from 'react-native';
 import React from 'react';
 
 import {FlatList} from 'react-native-gesture-handler';
@@ -161,27 +161,6 @@ export default function SearchScreen() {
         flex: 1,
         backgroundColor: COLORS.white,
       }}>
-      <View style={{marginHorizontal:SIZES.padding}}>
-        <Input
-          placeholder="Search for Topics, Coureses, Lecture..."
-          width="100%"
-          variant='outline'
-          borderRadius="4"
-          py="3"
-          px="1"
-          fontSize="14"
-          mt={5}
-          InputLeftElement={
-            <Image source={icons.search} resizeMode='contain' style={{
-                  tintColor:COLORS.gray,
-                  width:30,
-                  height:30,
-                  margin:10
-            }}/>
-          }
-
-        />
-      </View>
       <Animated.ScrollView
         ref={scrollView}
         contentContainerStyle={{
@@ -192,6 +171,30 @@ export default function SearchScreen() {
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
         keyboardDismissMode="on-drag">
+        <View style={{marginHorizontal: SIZES.padding}}>
+          <Input
+            placeholder="Search for Topics, Coureses, Lecture..."
+            width="100%"
+            variant="outline"
+            borderRadius="4"
+            py="3"
+            px="1"
+            fontSize="14"
+            mt={5}
+            InputLeftElement={
+              <Image
+                source={icons.search}
+                resizeMode="contain"
+                style={{
+                  tintColor: COLORS.gray,
+                  width: 30,
+                  height: 30,
+                  margin: 10,
+                }}
+              />
+            }
+          />
+        </View>
         {renderTopSearches()}
         {renderBrowndCategories()}
       </Animated.ScrollView>
