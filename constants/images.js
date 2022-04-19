@@ -7,7 +7,9 @@ export const skiVilla = require("../assets/images/ski_villa.jpg");
 export const skiVillaBanner = require("../assets/images/ski_villa_banner.jpg");
 export const background = require("../assets/images/background.jpg");
 export const logo = require("../assets/images/logo.png");
+export const banner = require("../assets/images/Banner.jpg");
 export default {
+    banner,
     logo,
     background,
     beach,

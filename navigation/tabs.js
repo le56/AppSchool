@@ -8,6 +8,7 @@ import {icons, COLORS} from '../constants';
 import ChatScreen from '../screens/ChatScreen';
 import BookMark from '../screens/BookMark';
 import SearchScreen from '../screens/SearchScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -88,7 +89,7 @@ const Tabs = () => {
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Bookmark" component={BookMark} />
       <Tab.Screen name="Chat" component={ChatScreen} />
-      <Tab.Screen name="Account" component={Home} />
+      <Tab.Screen name="Account" component={ProfileScreen} />
     </Tab.Navigator>
   );
 };
