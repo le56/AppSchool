@@ -7,29 +7,35 @@ import {DestinationDetail, Onboarding} from './screens/';
 import {icons, COLORS, SIZES} from './constants';
 import {NativeBaseProvider} from 'native-base';
 import 'firebase/firestore';
+import ConnectyCube from 'react-native-connectycube';
 
 const Stack = createStackNavigator();
+
 const App = () => {
-  useEffect(() => {
-    initCometChat();
+  const CREDENTIALS = {
+    appId: 6178,
+    authKey: 'TZne3rsOxy9vPym',
+    authSecret: 'ymLf5xxUU8ZnJr4',
+  };
+  ConnectyCube.init(CREDENTIALS);
 
-  }, []);
-  const initCometChat = async () => {
-    const { CometChat } = await import('@cometchat-pro/react-native-chat');
-    const appID = '206784007695498a';
-    const region = 'us';
-    const appSetting = new CometChat.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(region).build();
-    CometChat.init(appID, appSetting).then(
-      () => {
-        console.log('CometChat was initialized successfully');
-        setCometChat(() => CometChat);
-      },
-      error => {
-
-      }
-    );
+  const userProfile = {
+    login: 'maqwqrvin18',
+    password: 'swqupersecurepwd',
+    email: 'duong@gmail.com',
+    full_name: 'Marvin Simon',
+    phone: '47802323143',
+    website: 'https://dozensofdreams.com',
+    tag_list: ['iphone', 'apple'],
+    custom_data: JSON.stringify({middle_name: 'Bartoleo'}),
   };
 
+  const signUp = async (params)=> {
+    await ConnectyCube.createSession()
+    await ConnectyCube.users.signup(params)
+    return this.signIn(params)
+  }
+  signUp(userProfile);
 
   return (
     <NativeBaseProvider>

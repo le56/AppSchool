@@ -26,7 +26,14 @@ export const favourite = require("../assets/icons/favourite.png");
 export const starIcon = require("../assets/icons/star.png");
 export const notification = require("../assets/icons/notification.png");
 export const camera = require("../assets/icons/camera.png");
+export const facebook = require("../assets/icons/facebook-icon.png");
+export const instagram = require("../assets/icons/instagram-icon.png");
+export const twitter = require("../assets/icons/twitter-icon.png");
+
 export default {
+    facebook,
+    instagram,
+    twitter,
     camera,
     notification,
     starIcon,
