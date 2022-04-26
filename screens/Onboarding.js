@@ -20,20 +20,21 @@ const Onboarding = ({navigation}) => {
   React.useEffect(() => {
     GoogleSignin.configure({
       webClientId:
-        '595078339994-uteuhhb7o0961q6funtmgb2n0jp39p90.apps.googleusercontent.com',
+        '595078339994-tv3b033ghoagfm1spnk7ps1sbq1hkim3.apps.googleusercontent.com',
       offlineAccess: true,
     });
   }, []);
+
 
   const GoogleSingUp = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       await GoogleSignin.signIn().then(async result => {
-        setUser(result.user)
-        console.log(result.user);
+        setUser(result)
+        console.log(result);
       }); 
     } catch (error) {
-
+      console.log(error)
     }
     navigation.navigate('Home');
   };
@@ -77,7 +78,7 @@ const Onboarding = ({navigation}) => {
               justifyContent: 'center',
             },
           ]}
-          onPress={() => GoogleSingUp()}>
+          onPress={GoogleSingUp}>
           <LinearGradient
             style={{
               height: '100%',

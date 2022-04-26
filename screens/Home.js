@@ -11,10 +11,11 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {images, COLORS, FONTS, SIZES, icons} from '../constants';
-import {Divider,Avatar} from 'native-base';
+import {Divider, Avatar} from 'native-base';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-
+import {useSelector} from 'react-redux';
 const Home = ({navigation}) => {
+  const value = useSelector(state => state.products);
   const [deadline, setdeadline] = React.useState([
     {
       id: 0,
@@ -203,31 +204,52 @@ const Home = ({navigation}) => {
           <Text style={{...FONTS.body4}}>AM</Text>
         </View>
         <Divider orientation="vertical" />
-        <View style={{flex:1,flexDirection: 'column',marginTop:SIZES.padding/2, marginLeft:SIZES.padding/2}}>
-          <Text style={{...FONTS.h3,color:COLORS.black, marginLeft:0}}>{item.name}</Text>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            marginTop: SIZES.padding / 2,
+            marginLeft: SIZES.padding / 2,
+          }}>
+          <Text style={{...FONTS.h3, color: COLORS.black, marginLeft: 0}}>
+            {item.name}
+          </Text>
           <View
             style={{
               flexDirection: 'row',
-              marginTop:5
+              marginTop: 5,
             }}>
-            <View style={{width:32, height:32, alignItems:'center', justifyContent:'center'}}>
-            <IconEntypo name="location" size={18} />
+            <View
+              style={{
+                width: 32,
+                height: 32,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <IconEntypo name="location" size={18} />
             </View>
-            <Text style={{...FONTS.h3, flex:1,marginLeft:SIZES.padding/3}} numberOfLines={1}>
+            <Text
+              style={{...FONTS.h3, flex: 1, marginLeft: SIZES.padding / 3}}
+              numberOfLines={1}>
               Viet Nam and Korea University hello
             </Text>
           </View>
-          <View style={{flexDirection: 'row', alignItems:'center',marginTop:5}}>
+          <View
+            style={{flexDirection: 'row', alignItems: 'center', marginTop: 5}}>
             <Avatar
               bg="lightBlue.400"
               source={{
                 uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
               }}
-                size='8'
-              >
+              size="8">
               <Avatar.Badge bg="green.500" />
             </Avatar>
-            <Text style={{overflow: 'hidden',marginLeft:SIZES.padding/3,...FONTS.h4}}>
+            <Text
+              style={{
+                overflow: 'hidden',
+                marginLeft: SIZES.padding / 3,
+                ...FONTS.h4,
+              }}>
               Ts. Lê Khánh Dương
             </Text>
           </View>
@@ -258,9 +280,20 @@ const Home = ({navigation}) => {
               }}>
               Classes
             </Text>
-            <Text style={{marginRight: SIZES.padding, ...FONTS.h4}}>
-              See all
-            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  marginRight: SIZES.padding,
+                  ...FONTS.h4,
+                  backgroundColor: COLORS.primary,
+                  color: COLORS.white,
+                  paddingHorizontal: 10,
+                  paddingVertical: 2,
+                  borderRadius: 15,
+                }}>
+                See all
+              </Text>
+            </TouchableOpacity>
           </View>
           <FlatList
             horizontal={false}
@@ -287,9 +320,20 @@ const Home = ({navigation}) => {
               }}>
               Deadline
             </Text>
-            <Text style={{marginRight: SIZES.padding, ...FONTS.h4}}>
-              See all
-            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  marginRight: SIZES.padding,
+                  ...FONTS.h4,
+                  backgroundColor: COLORS.primary,
+                  color: COLORS.white,
+                  paddingHorizontal: 10,
+                  paddingVertical: 2,
+                  borderRadius: 15,
+                }}>
+                See all
+              </Text>
+            </TouchableOpacity>
           </View>
           <FlatList
             horizontal

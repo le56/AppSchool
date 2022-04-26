@@ -8,7 +8,8 @@ import {icons, COLORS, SIZES} from './constants';
 import {NativeBaseProvider} from 'native-base';
 import 'firebase/firestore';
 import ConnectyCube from 'react-native-connectycube';
-
+import {Provider} from 'react-redux';
+import store from './redux/store';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -30,65 +31,65 @@ const App = () => {
     custom_data: JSON.stringify({middle_name: 'Bartoleo'}),
   };
 
-  const signUp = async (params)=> {
-    await ConnectyCube.createSession()
-    await ConnectyCube.users.signup(params)
-    return this.signIn(params)
-  }
+  const signUp = async params => {
+    await ConnectyCube.createSession();
+    await ConnectyCube.users.signup(params);
+    return this.signIn(params);
+  };
   signUp(userProfile);
 
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={'Home'}>
-          {/* Screens */}
-          <Stack.Screen
-            name="Onboarding"
-            component={Onboarding}
-            options={{
-              title: null,
-              headerStyle: {
-                backgroundColor: COLORS.white,
-              },
-              headerLeft: null,
-              headerRight: () => (
-                <TouchableOpacity
-                  style={{marginRight: SIZES.padding}}
-                  onPress={() => console.log('Pressed')}>
-                  <Image
-                    source={icons.barMenu}
-                    resizeMode="contain"
-                    style={{
-                      width: 25,
-                      height: 25,
-                    }}
-                  />
-                </TouchableOpacity>
-              ),
-            }}
-          />
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={'Onboarding'}>
+            {/* Screens */}
+            <Stack.Screen
+              name="Onboarding"
+              component={Onboarding}
+              options={{
+                title: null,
+                headerStyle: {
+                  backgroundColor: COLORS.white,
+                },
+                headerLeft: null,
+                headerRight: () => (
+                  <TouchableOpacity
+                    style={{marginRight: SIZES.padding}}
+                    onPress={() => console.log('Pressed')}>
+                    <Image
+                      source={icons.barMenu}
+                      resizeMode="contain"
+                      style={{
+                        width: 25,
+                        height: 25,
+                      }}
+                    />
+                  </TouchableOpacity>
+                ),
+              }}
+            />
 
-          <Stack.Screen
-            name="DestinationDetail"
-            component={DestinationDetail}
-            options={{headerShown: false}}
-          />
+            <Stack.Screen
+              name="DestinationDetail"
+              component={DestinationDetail}
+              options={{headerShown: false}}
+            />
 
-          {/* Tabs */}
-          <Stack.Screen
-            name="Home"
-            component={Tabs}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
+            {/* Tabs */}
+            <Stack.Screen
+              name="Home"
+              component={Tabs}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
     /*  */
   );
 };
 
 export default () => {
-  return <App />;
+  return   <Provider store={store}><App/></Provider>;
 };
