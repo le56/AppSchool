@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -13,9 +13,39 @@ import LinearGradient from 'react-native-linear-gradient';
 import {images, COLORS, FONTS, SIZES, icons} from '../constants';
 import {Divider, Avatar} from 'native-base';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import Loading from '../component/Loading';
+import {changeLoading, setUser} from '../redux/reducers/currentUser';
+import {unwrapResult} from '@reduxjs/toolkit';
+
+import axios from 'axios';
+
 const Home = ({navigation}) => {
-  const value = useSelector(state => state.products);
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.currentUser.loading);
+  const tokenID = useSelector(state => state.currentUser.tokenID);
+
+  React.useEffect(() => {
+    const getUser =async () => {
+      dispatch(changeLoading(true));
+      try {
+        const res = await axios.post(
+          'https://nguyenngockhanh.xyz/api/auth/google/login',
+          {
+            tokenId: tokenID,
+          },
+        );
+        console.log(res.data);
+        dispatch(setUser(res.data))
+        dispatch(changeLoading(false));
+      } catch (error) {
+        console.log(error);
+        dispatch(changeLoading(false));
+      }
+    };
+    getUser()
+  }, []);
+
   const [deadline, setdeadline] = React.useState([
     {
       id: 0,
@@ -257,95 +287,95 @@ const Home = ({navigation}) => {
       </TouchableOpacity>
     );
   }
-
-  return (
-    <View style={styles.container}>
-      {/* Banner */}
-      {renderBanner()}
-      <ScrollView>
-        {/* Class */}
-        <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-            }}>
-            <Text
+  if (loading == false) {
+    return (
+      <View style={styles.container}>
+        {/* Banner */}
+        {renderBanner()}
+          {/* Class */}
+          <View>
+            <FlatList
+              ListHeaderComponent={<View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-end',
+                }}>
+                <Text
+                  style={{
+                    marginTop: SIZES.base,
+                    marginHorizontal: SIZES.padding,
+                    color: COLORS.black,
+                    ...FONTS.h2,
+                  }}>
+                  Classes
+                </Text>
+                <TouchableOpacity>
+                  <Text
+                    style={{
+                      marginRight: SIZES.padding,
+                      ...FONTS.h4,
+                      backgroundColor: COLORS.primary,
+                      color: COLORS.white,
+                      paddingHorizontal: 10,
+                      paddingVertical: 2,
+                      borderRadius: 15,
+                    }}>
+                    See all
+                  </Text>
+                </TouchableOpacity>
+              </View>}
+              horizontal={false}
+              showsHorizontalScrollIndicator={false}
+              data={data}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({item, index}) => renderClasses(item, index)}
+            />
+          </View>
+          {/* Deadline */}
+          <View>
+            <View
               style={{
-                marginTop: SIZES.base,
-                marginHorizontal: SIZES.padding,
-                color: COLORS.black,
-                ...FONTS.h2,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
               }}>
-              Classes
-            </Text>
-            <TouchableOpacity>
               <Text
                 style={{
-                  marginRight: SIZES.padding,
-                  ...FONTS.h4,
-                  backgroundColor: COLORS.primary,
-                  color: COLORS.white,
-                  paddingHorizontal: 10,
-                  paddingVertical: 2,
-                  borderRadius: 15,
+                  marginTop: SIZES.base,
+                  marginHorizontal: SIZES.padding,
+                  color: COLORS.black,
+                  ...FONTS.h2,
                 }}>
-                See all
+                Deadline
               </Text>
-            </TouchableOpacity>
+              <TouchableOpacity>
+                <Text
+                  style={{
+                    marginRight: SIZES.padding,
+                    ...FONTS.h4,
+                    backgroundColor: COLORS.primary,
+                    color: COLORS.white,
+                    paddingHorizontal: 10,
+                    paddingVertical: 2,
+                    borderRadius: 15,
+                  }}>
+                  See all
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={deadline}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({item, index}) => renderDeadline(item, index)}
+            />
           </View>
-          <FlatList
-            horizontal={false}
-            showsHorizontalScrollIndicator={false}
-            data={data}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item, index}) => renderClasses(item, index)}
-          />
-        </View>
-        {/* Deadline */}
-        <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-            }}>
-            <Text
-              style={{
-                marginTop: SIZES.base,
-                marginHorizontal: SIZES.padding,
-                color: COLORS.black,
-                ...FONTS.h2,
-              }}>
-              Deadline
-            </Text>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  marginRight: SIZES.padding,
-                  ...FONTS.h4,
-                  backgroundColor: COLORS.primary,
-                  color: COLORS.white,
-                  paddingHorizontal: 10,
-                  paddingVertical: 2,
-                  borderRadius: 15,
-                }}>
-                See all
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={deadline}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item, index}) => renderDeadline(item, index)}
-          />
-        </View>
-      </ScrollView>
-    </View>
-  );
+      </View>
+    );
+  }
+  return <Loading />;
 };
 
 const styles = StyleSheet.create({

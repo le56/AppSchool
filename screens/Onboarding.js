@@ -13,9 +13,12 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {images, COLORS, FONTS, SIZES} from '../constants';
-
+import {useSelector, useDispatch} from 'react-redux';
+import currentUser from '../redux/reducers/currentUser';
 const Onboarding = ({navigation}) => {
   // Render
+  const dispatch = useDispatch();
+  const [tokenID, setTokenID] = useState('');
 
   React.useEffect(() => {
     GoogleSignin.configure({
@@ -27,15 +30,13 @@ const Onboarding = ({navigation}) => {
 
   const GoogleSingUp = async () => {
     try {
-      await GoogleSignin.hasPlayServices();
-
-      await GoogleSignin.signIn().then(async result => {
-        console.log(result);
+      await GoogleSignin.signIn().then(({idToken}) => {
+        dispatch(currentUser.actions.addTokenID(idToken));
+        navigation.navigate('Home');
       });
     } catch (error) {
       console.log(error);
     }
-    navigation.navigate('Home');
   };
 
   return (

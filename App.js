@@ -7,13 +7,13 @@ import {DestinationDetail, Onboarding} from './screens/';
 import {icons, COLORS, SIZES} from './constants';
 import {NativeBaseProvider} from 'native-base';
 import 'firebase/firestore';
-import ConnectyCube from 'react-native-connectycube';
+//import ConnectyCube from 'react-native-connectycube';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 const Stack = createStackNavigator();
 
 const App = () => {
-  const CREDENTIALS = {
+  /* const CREDENTIALS = {
     appId: 6178,
     authKey: 'TZne3rsOxy9vPym',
     authSecret: 'ymLf5xxUU8ZnJr4',
@@ -36,7 +36,7 @@ const App = () => {
     await ConnectyCube.users.signup(params);
     return this.signIn(params);
   };
-  signUp(userProfile);
+  signUp(userProfile); */
 
   return (
       <NativeBaseProvider>
