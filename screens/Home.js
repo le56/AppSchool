@@ -9,14 +9,12 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {images, COLORS, FONTS, SIZES, icons} from '../constants';
 import {Divider, Avatar} from 'native-base';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../component/Loading';
 import {changeLoading, setUser} from '../redux/reducers/currentUser';
-import {unwrapResult} from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
@@ -310,7 +308,7 @@ const Home = ({navigation}) => {
                   }}>
                   Classes
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=> navigation.navigate('SchoolCarlendar')}>
                   <Text
                     style={{
                       marginRight: SIZES.padding,
