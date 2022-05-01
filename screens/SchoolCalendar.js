@@ -95,7 +95,7 @@ export default function SchoolCalendar() {
                   }}>
                   <IconEntypo name="md-location-sharp" size={20} />
                 </View>
-                <View style={{height:32, alignItems:'center'}}>
+                <View style={{height: 32, alignItems: 'center'}}>
                   <Text style={{marginLeft: 10}}>Room: 3K301</Text>
                 </View>
               </View>
@@ -117,7 +117,7 @@ export default function SchoolCalendar() {
 
   return (
     <View style={styles.container}>
-    {/*   <CalendarStrip
+      {/*   <CalendarStrip
         scrollable
         style={{height: 10060}}
         calendarColor={COLORS.white}
