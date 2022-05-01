@@ -33,8 +33,7 @@ const Home = ({navigation}) => {
             tokenId: tokenID,
           },
         );
-        console.log(res.data);
-        dispatch(setUser(res.data))
+        dispatch(setUser(res.data));
         dispatch(changeLoading(false));
       } catch (error) {
         console.log(error);

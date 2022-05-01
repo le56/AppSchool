@@ -117,9 +117,9 @@ export default function SchoolCalendar() {
 
   return (
     <View style={styles.container}>
-      <CalendarStrip
+    {/*   <CalendarStrip
         scrollable
-        style={{height: 100}}
+        style={{height: 10060}}
         calendarColor={COLORS.white}
         calendarHeaderStyle={{color: COLORS.black, ...FONTS.h4, marginTop: 10}}
         dateNumberStyle={{color: COLORS.black}}
@@ -134,7 +134,7 @@ export default function SchoolCalendar() {
           ...FONTS.h3,
         }}
         selectedDate={date}
-      />
+      /> */}
       {renderTimeTable()}
     </View>
   );

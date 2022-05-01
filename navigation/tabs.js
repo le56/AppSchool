@@ -1,15 +1,12 @@
 import React from 'react';
 import {Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
-import {Home} from '../screens/';
-
 import {icons, COLORS} from '../constants';
-import ChatScreen from '../screens/ChatScreen';
 import BookMark from '../screens/BookMark';
 import SearchScreen from '../screens/SearchScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeStack from './homeStack';
+import HomeChat from '../screens/ChatApp/HomeChat';
 
 const Tab = createBottomTabNavigator();
 
@@ -89,7 +86,7 @@ const Tabs = () => {
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Bookmark" component={BookMark} />
-      <Tab.Screen name="Chat" component={ChatScreen} />
+      <Tab.Screen name="Chat" component={HomeChat} />
       <Tab.Screen name="Account" component={ProfileScreen} />
     </Tab.Navigator>
   );
