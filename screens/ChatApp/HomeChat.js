@@ -26,11 +26,11 @@ export default function HomeChat() {
     const connectUser = async () => {
       await client.connectUser(
         {
-          id: `student${user.student_id}`,
-          name: user.student_email,
-          image: `https://nguyenngockhanh.xyz/images/${user.student_avatar}`,
+          id: `student${user.id}`,
+          name: user.email,
+          image: `https://nguyenngockhanh.xyz/images/${user.avatar}`,
         },
-        client.devToken(`student${user.student_id}`),
+        client.devToken(`student${user.id}`),
       );
       const channel = client.channel('messaging', 'notjustdev', {
         name: 'notjust.dev',
@@ -84,8 +84,8 @@ export default function HomeChat() {
                   Khánh
                 </Text>
               </View>
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-           {/*      <FontAwesome
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                {/*      <FontAwesome
                   name="phone"
                   size={25}
                   color={COLORS.primary}
@@ -95,7 +95,7 @@ export default function HomeChat() {
                   name="info-circle"
                   size={30}
                   color={COLORS.primary}
-                  style={{padding: 5, paddingRight:20}}
+                  style={{padding: 5, paddingRight: 20}}
                 />
               </View>
             </View>
