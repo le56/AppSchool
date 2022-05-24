@@ -191,7 +191,8 @@ export default function BookMark() {
                 category={item}
                 containerStyle={{
                   marginLeft: index == 0 ? SIZES.padding : SIZES.base,
-                  marginRight: index == categories.length - 1 ? SIZES.padding : 0,
+                  marginRight:
+                    index == categories.length - 1 ? SIZES.padding : 0,
                 }}
               />
             );
@@ -250,7 +251,11 @@ export default function BookMark() {
           <Text>Monday, 8th Sept 2022</Text>
         </View>
         <TouchableOpacity>
-          <Image source={icons.notification} resizeMode="contain" style={{width:25,height:25}} />
+          <Image
+            source={icons.notification}
+            resizeMode="contain"
+            style={{width: 25, height: 25}}
+          />
         </TouchableOpacity>
       </View>
     );
