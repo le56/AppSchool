@@ -7,6 +7,7 @@ import SearchScreen from '../screens/SearchScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeStack from './homeStack';
 import HomeChat from '../screens/ChatApp/HomeChat';
+import searchStack from './searchStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -84,9 +85,9 @@ const Tabs = () => {
         },
       })}>
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Search" component={searchStack} />
       <Tab.Screen name="Bookmark" component={BookMark} />
-      <Tab.Screen name="Chat" component={HomeChat} />
+      <Tab.Screen name="Chat" component={HomeChat}/>
       <Tab.Screen name="Account" component={ProfileScreen} />
     </Tab.Navigator>
   );

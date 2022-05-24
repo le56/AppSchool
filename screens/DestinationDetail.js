@@ -16,7 +16,6 @@ const StarReview = ({ rate }) => {
     var fullStar = Math.floor(rate)
     var noStar = Math.floor(5 - rate)
     var halfStar = 5 - fullStar - noStar
-
     // Full Star
     for (var i = 0; i < fullStar; i++) {
         starComponents.push(
@@ -31,7 +30,6 @@ const StarReview = ({ rate }) => {
             />
         )
     }
-
     // Half Star
     for (var i = 0; i < halfStar; i++) {
         starComponents.push(
@@ -61,7 +59,6 @@ const StarReview = ({ rate }) => {
             />
         )
     }
-
     return (
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             {starComponents}
@@ -69,7 +66,6 @@ const StarReview = ({ rate }) => {
         </View>
     )
 }
-
 const IconLabel = ({ icon, label }) => {
     return (
         <View style={{ alignItems: 'center' }}>
@@ -87,9 +83,7 @@ const IconLabel = ({ icon, label }) => {
 }
 
 const DestinationDetail = ({ navigation }) => {
-
     // Render
-
     return (
         <View style={styles.container}>
             {/* Header */}

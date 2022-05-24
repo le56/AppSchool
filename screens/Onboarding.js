@@ -53,7 +53,7 @@ const Onboarding = ({navigation}) => {
       </View>
 
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <View style={{alignItems: 'center', marginHorizontal: SIZES.padding}}>
+       {/*  <View style={{alignItems: 'center', marginHorizontal: SIZES.padding}}>
           <Text style={{...FONTS.h2}}>Digital Ticket</Text>
           <Text
             style={{
@@ -65,7 +65,7 @@ const Onboarding = ({navigation}) => {
             Easy solution to buy tickets for your travel, business trips,
             transportation, lodging and culinary.
           </Text>
-        </View>
+        </View> */}
 
         <TouchableOpacity
           style={[

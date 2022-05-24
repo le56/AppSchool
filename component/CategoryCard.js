@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity, ImageBackground } from 'react-native'
 import React from 'react'
 import { COLORS, FONTS, SIZES } from '../constants'
 
-export default function CategoryCard({category,containerStyle}) {
+export default function CategoryCard({category,containerStyle,navigation}) {
   return (
-   <TouchableOpacity>
+   <TouchableOpacity onPress={()=> {navigation.navigate('searchItem')}}>
        <ImageBackground
             source={category?.thumbnail}
             resizeMode="cover"

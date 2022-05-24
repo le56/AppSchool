@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {images, COLORS, FONTS, SIZES, icons} from '../constants';
-import {Divider, Avatar} from 'native-base';
+import {Divider, Avatar, Center, AlertDialog, Button} from 'native-base';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
 import Loading from '../component/Loading';
@@ -22,9 +22,13 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.currentUser.loading);
   const tokenID = useSelector(state => state.currentUser.tokenID);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [user, setuser] = useState({});
+  const onClose = () => setIsOpen(false);
+  const cancelRef = React.useRef(null);
 
   React.useEffect(() => {
-    const getUser =async () => {
+    const getUser = async () => {
       dispatch(changeLoading(true));
       try {
         const res = await axios.post(
@@ -33,6 +37,8 @@ const Home = ({navigation}) => {
             tokenId: tokenID,
           },
         );
+        //setUser(res);
+        console.log(res)
         dispatch(setUser(res.data));
         dispatch(changeLoading(false));
       } catch (error) {
@@ -40,7 +46,7 @@ const Home = ({navigation}) => {
         dispatch(changeLoading(false));
       }
     };
-    getUser()
+    getUser();
   }, []);
 
   const [deadline, setdeadline] = React.useState([
@@ -218,7 +224,7 @@ const Home = ({navigation}) => {
           classes,
         ]}
         onPress={() => {
-          navigation.navigate('Deadline');
+          setIsOpen(true);
         }}>
         <View
           style={{
@@ -287,12 +293,42 @@ const Home = ({navigation}) => {
   if (loading == false) {
     return (
       <View style={styles.container}>
+        <Center>
+          <AlertDialog
+            leastDestructiveRef={cancelRef}
+            isOpen={isOpen}
+            onClose={onClose}>
+            <AlertDialog.Content>
+              <AlertDialog.Header></AlertDialog.Header>
+              <AlertDialog.Body>
+                This will remove all data relating to Alex. This action cannot
+                be reversed. Deleted data can not be recovered.
+              </AlertDialog.Body>
+              <AlertDialog.Footer>
+                <Button.Group space={2}>
+                  <Button
+                    variant="unstyled"
+                    colorScheme="coolGray"
+                    onPress={onClose}
+                    ref={cancelRef}
+                    >
+                    Cancel
+                  </Button>
+                  {/* <Button colorScheme="danger" onPress={onClose}>
+                    Delete
+                  </Button> */}
+                </Button.Group>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
+          </AlertDialog>
+        </Center>
         {/* Banner */}
         {renderBanner()}
-          {/* Class */}
-          <View>
-            <FlatList
-              ListHeaderComponent={<View
+        {/* Class */}
+        <View>
+          <FlatList
+            ListHeaderComponent={
+              <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
@@ -307,7 +343,8 @@ const Home = ({navigation}) => {
                   }}>
                   Classes
                 </Text>
-                <TouchableOpacity onPress={()=> navigation.navigate('SchoolCarlendar')}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SchoolCarlendar')}>
                   <Text
                     style={{
                       marginRight: SIZES.padding,
@@ -321,54 +358,55 @@ const Home = ({navigation}) => {
                     See all
                   </Text>
                 </TouchableOpacity>
-              </View>}
-              horizontal={false}
-              showsHorizontalScrollIndicator={false}
-              data={data}
-              keyExtractor={item => item.id.toString()}
-              renderItem={({item, index}) => renderClasses(item, index)}
-            />
-          </View>
-          {/* Deadline */}
-          <View>
-            <View
+              </View>
+            }
+            horizontal={false}
+            showsHorizontalScrollIndicator={false}
+            data={data}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item, index}) => renderClasses(item, index)}
+          />
+        </View>
+        {/* Deadline */}
+        <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+            }}>
+            <Text
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'flex-end',
+                marginTop: SIZES.base,
+                marginHorizontal: SIZES.padding,
+                color: COLORS.black,
+                ...FONTS.h2,
               }}>
+              Deadline
+            </Text>
+            <TouchableOpacity>
               <Text
                 style={{
-                  marginTop: SIZES.base,
-                  marginHorizontal: SIZES.padding,
-                  color: COLORS.black,
-                  ...FONTS.h2,
+                  marginRight: SIZES.padding,
+                  ...FONTS.h4,
+                  backgroundColor: COLORS.primary,
+                  color: COLORS.white,
+                  paddingHorizontal: 10,
+                  paddingVertical: 2,
+                  borderRadius: 15,
                 }}>
-                Deadline
+                See all
               </Text>
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    marginRight: SIZES.padding,
-                    ...FONTS.h4,
-                    backgroundColor: COLORS.primary,
-                    color: COLORS.white,
-                    paddingHorizontal: 10,
-                    paddingVertical: 2,
-                    borderRadius: 15,
-                  }}>
-                  See all
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={deadline}
-              keyExtractor={item => item.id.toString()}
-              renderItem={({item, index}) => renderDeadline(item, index)}
-            />
+            </TouchableOpacity>
           </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={deadline}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({item, index}) => renderDeadline(item, index)}
+          />
+        </View>
       </View>
     );
   }

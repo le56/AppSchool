@@ -8,7 +8,7 @@ import CategoryCard from '../component/CategoryCard';
 import FontAwesome from 'react-native-vector-icons';
 import {Input, Icon} from 'native-base';
 
-export default function SearchScreen() {
+export default function SearchScreen({navigation}) {
   const scrollView = React.useRef();
 
   const top_searches = [
@@ -147,6 +147,7 @@ export default function SearchScreen() {
                   marginLeft:
                     (index + 1) % 2 == 0 ? SIZES.radius : SIZES.padding,
                 }}
+                navigation={navigation}
               />
             );
           }}
