@@ -44,11 +44,11 @@ const App = () => {
             }}
           />
 
-          <Stack.Screen
+          {/* <Stack.Screen
             name="DestinationDetail"
             component={DestinationDetail}
             options={{headerShown: false}}
-          />
+          /> */}
 
           {/* Tabs */}
           <Stack.Screen
@@ -67,8 +67,8 @@ const App = () => {
 
 export default () => {
   return (
-        <Provider store={store}>
-             <App />
-        </Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   );
 };

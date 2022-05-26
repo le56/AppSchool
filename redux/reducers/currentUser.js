@@ -14,7 +14,10 @@ export const login = createAsyncThunk(
         },
       },
     )
-      .then(response => response.json)
+      .then(response => {
+        console.log(response);
+        return response.json;
+      })
       .catch(error => {
         console.log(error);
       });
@@ -32,12 +35,12 @@ const currentUser = createSlice({
     addTokenID(state, action) {
       state.tokenID = action.payload;
     },
-    changeLoading(state,action){
-      state.loading = action.payload
+    changeLoading(state, action) {
+      state.loading = action.payload;
     },
-    setUser(state,action){
-      state.user = action.payload
-    }
+    setUser(state, action) {
+      state.user = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(login.pending, state => {
@@ -53,7 +56,6 @@ const currentUser = createSlice({
   },
 });
 
-
-export const {changeLoading, setUser} = currentUser.actions
+export const {changeLoading, setUser} = currentUser.actions;
 
 export default currentUser;

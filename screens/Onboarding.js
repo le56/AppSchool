@@ -1,19 +1,16 @@
-import React, {useState, useContext} from 'react';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import React, {useState} from 'react';
 import {
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Text,
   Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
-import {images, COLORS, FONTS, SIZES} from '../constants';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {COLORS, FONTS, images, SIZES} from '../constants';
 import currentUser from '../redux/reducers/currentUser';
 const Onboarding = ({navigation}) => {
   // Render
@@ -53,7 +50,7 @@ const Onboarding = ({navigation}) => {
       </View>
 
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-       {/*  <View style={{alignItems: 'center', marginHorizontal: SIZES.padding}}>
+        {/*  <View style={{alignItems: 'center', marginHorizontal: SIZES.padding}}>
           <Text style={{...FONTS.h2}}>Digital Ticket</Text>
           <Text
             style={{

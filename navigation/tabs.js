@@ -1,13 +1,13 @@
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {Image} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {icons, COLORS} from '../constants';
+import {COLORS, icons} from '../constants';
 import BookMark from '../screens/BookMark';
-import SearchScreen from '../screens/SearchScreen';
+import HomeChat from '../screens/ChatApp/HomeChat';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeStack from './homeStack';
-import HomeChat from '../screens/ChatApp/HomeChat';
-import searchStack from './searchStack';
+import NewStack from './NewStack';
+import SearchStack from './searchStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +16,7 @@ const Tabs = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         headerShown: false,
-        tabBarShowLabel:false,
+        tabBarShowLabel: false,
         tabBarIcon: ({focused}) => {
           const tintColor = focused ? COLORS.primary : COLORS.gray;
 
@@ -85,9 +85,9 @@ const Tabs = () => {
         },
       })}>
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Search" component={searchStack} />
-      <Tab.Screen name="Bookmark" component={BookMark} />
-      <Tab.Screen name="Chat" component={HomeChat}/>
+      <Tab.Screen name="Search" component={SearchStack} />
+      <Tab.Screen name="Bookmark" component={NewStack} />
+      <Tab.Screen name="Chat" component={HomeChat} />
       <Tab.Screen name="Account" component={ProfileScreen} />
     </Tab.Navigator>
   );

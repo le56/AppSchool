@@ -1,12 +1,10 @@
-import {View, Text, Animated, Image} from 'react-native';
+import {Input} from 'native-base';
 import React from 'react';
-
+import {Animated, Image, Text, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {COLORS, FONTS, icons, SIZES} from '../constants';
-import TextButton from '../component/TextButton';
 import CategoryCard from '../component/CategoryCard';
-import FontAwesome from 'react-native-vector-icons';
-import {Input, Icon} from 'native-base';
+import TextButton from '../component/TextButton';
+import {COLORS, FONTS, icons, SIZES} from '../constants';
 
 export default function SearchScreen({navigation}) {
   const scrollView = React.useRef();

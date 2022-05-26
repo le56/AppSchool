@@ -1,30 +1,39 @@
+import axios from 'axios';
+import {
+  AlertDialog,
+  Avatar,
+  Button,
+  Center,
+  Divider,
+  ScrollView,
+} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {
-  StyleSheet,
-  View,
+  FlatList,
   Image,
+  ImageBackground,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  ImageBackground,
-  FlatList,
-  ScrollView,
+  View,
 } from 'react-native';
-import {images, COLORS, FONTS, SIZES, icons} from '../constants';
-import {Divider, Avatar, Center, AlertDialog, Button} from 'native-base';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
+import {timeTableApi} from '../api';
+import {BASE_URL_IMAGE} from '../api/axiosClient';
 import Loading from '../component/Loading';
+import {COLORS, FONTS, images, SIZES} from '../constants';
 import {changeLoading, setUser} from '../redux/reducers/currentUser';
-
-import axios from 'axios';
+import {setToken} from '../utils/setToken';
+import {timeLesstion} from '../utils/time';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.currentUser.loading);
+  const userCurrent = useSelector(state => state.currentUser?.user?.data?.user);
   const tokenID = useSelector(state => state.currentUser.tokenID);
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [user, setuser] = useState({});
-  const onClose = () => setIsOpen(false);
+  // const [isOpen, setIsOpen] = React.useState(false);
+  // const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -37,8 +46,8 @@ const Home = ({navigation}) => {
             tokenId: tokenID,
           },
         );
-        //setUser(res);
-        console.log(res)
+
+        setToken(res.data.data.access_token);
         dispatch(setUser(res.data));
         dispatch(changeLoading(false));
       } catch (error) {
@@ -52,41 +61,40 @@ const Home = ({navigation}) => {
   const [deadline, setdeadline] = React.useState([
     {
       id: 0,
-      name: 'Ski Villa',
+      name: 'Android',
       duration: 3,
       color: '#FEF5F6',
     },
     {
       id: 1,
-      name: 'Climbing Hills',
+      name: 'SXTK',
       duration: 5,
       color: '#F4FDF8',
     },
     {
       id: 2,
-      name: 'Frozen Hills',
+      name: 'Toán rời rạc',
       duration: 1,
       color: '#F4FDF8',
     },
     {
       id: 3,
-      name: 'Beach',
+      name: 'Web design',
       duration: 4,
       color: '#FEF5F6',
     },
   ]);
-  const [data, setdata] = React.useState([
-    {
-      id: 0,
-      name: 'Ski Villa',
-      img: images.skiVilla,
-    },
-    {
-      id: 1,
-      name: 'Climbing Hills',
-      img: images.climbingHills,
-    },
-  ]);
+  const [data, setdata] = React.useState([]);
+
+  const getTodayTimetable = async () => {
+    const res = await timeTableApi.getTodayTimetable();
+    // console.warn('res timetable ', res.data);
+    setdata(res.data.data);
+  };
+
+  useEffect(() => {
+    userCurrent && getTodayTimetable();
+  }, [userCurrent]);
 
   // Render
 
@@ -107,7 +115,7 @@ const Home = ({navigation}) => {
           },
         ]}
         onPress={() => {
-          navigation.navigate('Deadline');
+          // navigation.navigate('Deadline');
         }}>
         <View
           style={[
@@ -193,7 +201,7 @@ const Home = ({navigation}) => {
             Good Mornning !
           </Text>
           <Text style={{color: COLORS.white, ...FONTS.h2, fontSize: 25}}>
-            Le Khanh Duong
+            {userCurrent?.firstName + ' ' + userCurrent?.lastName}
           </Text>
           <Text style={{color: COLORS.white, ...FONTS.body1, fontSize: 15}}>
             Here is a list of schedule you need check...
@@ -204,6 +212,7 @@ const Home = ({navigation}) => {
   };
 
   function renderClasses(item, index) {
+    console.log('item ', item);
     let classes = {};
     if (item.id == 0) {
       classes = {marginTop: SIZES.padding - 5};
@@ -224,7 +233,7 @@ const Home = ({navigation}) => {
           classes,
         ]}
         onPress={() => {
-          setIsOpen(true);
+          // setIsOpen(true);
         }}>
         <View
           style={{
@@ -233,8 +242,10 @@ const Home = ({navigation}) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={{color: COLORS.black, ...FONTS.h3}}>08:00</Text>
-          <Text style={{...FONTS.body4}}>AM</Text>
+          <Text style={{color: COLORS.black, ...FONTS.h3}}>
+            {timeLesstion[item.lession.split('-')[0]]}
+          </Text>
+          {/* <Text style={{...FONTS.body4}}>AM</Text> */}
         </View>
         <Divider orientation="vertical" />
         <View
@@ -245,7 +256,7 @@ const Home = ({navigation}) => {
             marginLeft: SIZES.padding / 2,
           }}>
           <Text style={{...FONTS.h3, color: COLORS.black, marginLeft: 0}}>
-            {item.name}
+            {item.subject_class_short_name}
           </Text>
           <View
             style={{
@@ -262,9 +273,9 @@ const Home = ({navigation}) => {
               <IconEntypo name="location" size={18} />
             </View>
             <Text
-              style={{...FONTS.h3, flex: 1, marginLeft: SIZES.padding / 3}}
+              style={{...FONTS.h4, flex: 1, marginLeft: SIZES.padding / 3}}
               numberOfLines={1}>
-              Viet Nam and Korea University hello
+              {item.subject_class_name}
             </Text>
           </View>
           <View
@@ -272,9 +283,9 @@ const Home = ({navigation}) => {
             <Avatar
               bg="lightBlue.400"
               source={{
-                uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+                uri: `${BASE_URL_IMAGE}/${item.lecturer.leturer_avatar}`,
               }}
-              size="8">
+              size="6">
               <Avatar.Badge bg="green.500" />
             </Avatar>
             <Text
@@ -282,8 +293,13 @@ const Home = ({navigation}) => {
                 overflow: 'hidden',
                 marginLeft: SIZES.padding / 3,
                 ...FONTS.h4,
+                fontSize: 12,
               }}>
-              Ts. Lê Khánh Dương
+              {/* Ts. Lê Khánh Dương */}
+              {item.lecturer.leturer_level.level_name + ' '}
+              {item.lecturer.leturer_firstName +
+                ' ' +
+                item.lecturer.leturer_lastName}
             </Text>
           </View>
         </View>
@@ -292,12 +308,12 @@ const Home = ({navigation}) => {
   }
   if (loading == false) {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Center>
-          <AlertDialog
+          {/* <AlertDialog
             leastDestructiveRef={cancelRef}
-            isOpen={isOpen}
-            onClose={onClose}>
+            isOpen={false}
+            onClose={() => {}}>
             <AlertDialog.Content>
               <AlertDialog.Header></AlertDialog.Header>
               <AlertDialog.Body>
@@ -310,17 +326,16 @@ const Home = ({navigation}) => {
                     variant="unstyled"
                     colorScheme="coolGray"
                     onPress={onClose}
-                    ref={cancelRef}
-                    >
+                    ref={cancelRef}>
                     Cancel
                   </Button>
-                  {/* <Button colorScheme="danger" onPress={onClose}>
+                  <Button colorScheme="danger" onPress={onClose}>
                     Delete
-                  </Button> */}
+                  </Button>
                 </Button.Group>
               </AlertDialog.Footer>
             </AlertDialog.Content>
-          </AlertDialog>
+          </AlertDialog> */}
         </Center>
         {/* Banner */}
         {renderBanner()}
@@ -333,6 +348,7 @@ const Home = ({navigation}) => {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'flex-end',
+                  marginBottom: 15,
                 }}>
                 <Text
                   style={{
@@ -363,7 +379,7 @@ const Home = ({navigation}) => {
             horizontal={false}
             showsHorizontalScrollIndicator={false}
             data={data}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={item => item.timetable_id.toString()}
             renderItem={({item, index}) => renderClasses(item, index)}
           />
         </View>
@@ -407,7 +423,7 @@ const Home = ({navigation}) => {
             renderItem={({item, index}) => renderDeadline(item, index)}
           />
         </View>
-      </View>
+      </ScrollView>
     );
   }
   return <Loading />;

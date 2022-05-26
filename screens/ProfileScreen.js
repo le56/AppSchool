@@ -6,8 +6,15 @@ import TextButton from '../component/TextButton';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconButton from '../component/IconButton';
 import CategoryCard from '../component/CategoryCard';
+import {useSelector} from 'react-redux';
+import {BASE_URL_IMAGE} from '../api/axiosClient';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useNavigation} from '@react-navigation/native';
 
 export default function ProfileScreen() {
+  const userCurrent = useSelector(state => state.currentUser?.user?.data?.user);
+  const navigation = useNavigation();
+
   const top_searches = [
     {
       id: 0,
@@ -75,10 +82,7 @@ export default function ProfileScreen() {
   const Section = ({containerStyle, title, onPress, children}) => {
     return (
       <View style={{...containerStyle}}>
-        <Divider
-          my="2"
-          background="muted.300"
-        />
+        <Divider my="2" background="muted.300" />
         <View style={{flexDirection: 'row', paddingHorizontal: SIZES.padding}}>
           <Text style={{flex: 1, ...FONTS.h2, color: COLORS.black}}>
             Classes
@@ -127,7 +131,7 @@ export default function ProfileScreen() {
             <Avatar
               bg="amber.500"
               source={{
-                uri: 'https://images.unsplash.com/photo-1614289371518-722f2615943d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                uri: `${BASE_URL_IMAGE}/${userCurrent.avatar}`,
               }}
               size="2xl"></Avatar>
             <View
@@ -247,8 +251,9 @@ export default function ProfileScreen() {
                 marginLeft: SIZES.padding,
                 ...FONTS.h2,
                 color: COLORS.white,
+                fontSize: 18,
               }}>
-              Le Khanh Duong
+              {userCurrent.firstName + ' ' + userCurrent.lastName}
             </Text>
             <Text
               style={{
@@ -256,12 +261,23 @@ export default function ProfileScreen() {
                 ...FONTS.body4,
                 color: COLORS.black,
               }}>
-              ID: 20IT623
+              ID: 20IT{userCurrent.id}
             </Text>
             <View style={{marginLeft: SIZES.padding, flexDirection: 'row'}}>
               {/*        <IconButton icon={icons.facebook}/>
               <IconButton icon={icons.instagram}/> */}
-              <IconButton icon={icons.twitter} />
+              <IconButton
+                icon={icons.back}
+                onPress={() => {
+                  try {
+                    GoogleSignin.signOut();
+                    GoogleSignin.revokeAccess();
+                    navigation.navigate('Onboarding');
+                  } catch (error) {
+                    console.log(error);
+                  }
+                }}
+              />
             </View>
           </View>
         </View>
