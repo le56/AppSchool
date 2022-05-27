@@ -33,6 +33,7 @@ const Home = ({navigation}) => {
   const userCurrent = useSelector(state => state.currentUser?.user?.data?.user);
   const tokenID = useSelector(state => state.currentUser.tokenID);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [absents, setAbsents] = useState(null);
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef(null);
 
@@ -212,7 +213,6 @@ const Home = ({navigation}) => {
   };
 
   function renderClasses(item, index) {
-    console.log('item ', item);
     let classes = {};
     if (item.id == 0) {
       classes = {marginTop: SIZES.padding - 5};
@@ -233,6 +233,7 @@ const Home = ({navigation}) => {
           classes,
         ]}
         onPress={() => {
+          setAbsents(item.attendance);
           setIsOpen(true);
         }}>
         <View
@@ -315,15 +316,22 @@ const Home = ({navigation}) => {
             isOpen={isOpen}
             onClose={() => {}}>
             <AlertDialog.Content>
-              <AlertDialog.Header>
-                Students are absent.
-              </AlertDialog.Header>
+              <AlertDialog.Header>Students are absent.</AlertDialog.Header>
               <AlertDialog.Body>
-                <Text>Nguyễn Ngọc Khánh: 1</Text>
-                <Text>Nguyễn Quỳnh Nhật Phương: 2</Text>
-                <Text>Huỳnh Thái Khiêm: 1</Text>
-                <Text>Lê Khánh Dương: 5 </Text>
-
+                {absents &&
+                  absents.attendance_students_absent.map(s => {
+                    return (
+                      <Text key={s.student_id}>
+                        {s.student_fisrtName + ' ' + s.student_lastName}
+                      </Text>
+                    );
+                  })}
+                {!absents && (
+                  <Text
+                    style={{...FONTS.h3, color: COLORS.black, marginLeft: 0}}>
+                    Not checked
+                  </Text>
+                )}
               </AlertDialog.Body>
               <AlertDialog.Footer>
                 <Button.Group space={2}>
