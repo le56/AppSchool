@@ -1,5 +1,6 @@
 import {ScrollView} from 'native-base';
 import React, {useEffect, useState} from 'react';
+import {Divider} from 'native-base';
 import {
   StyleSheet,
   View,
@@ -95,15 +96,18 @@ const DestinationDetail = ({navigation, route}) => {
               }}>
               <View style={{flex: 1}}>
                 <TouchableOpacity
+                  style={{justifyContent: 'center'}}
                   onPress={() => {
                     navigation.goBack();
                   }}>
                   <Image
                     source={icons.back}
-                    resizeMode="cover"
+                    resizeMode="contain"
                     style={{
-                      width: 30,
-                      height: 30,
+                      width: 25,
+                      height: 25,
+                      tintColor: COLORS.primary,
+                      marginTop: 5,
                     }}
                   />
                 </TouchableOpacity>
@@ -117,22 +121,21 @@ const DestinationDetail = ({navigation, route}) => {
                     source={icons.menu}
                     resizeMode="cover"
                     style={{
-                      width: 30,
-                      height: 30,
+                      width: 25,
+                      height: 25,
+                      tintColor: COLORS.primary,
+                      marginTop: 5,
                     }}
                   />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
-
+          <Divider h={0.5} />
           <View
-            style={
-              {
-                //   marginHorizontal: SIZES.radius,
-                //   justifyContent: 'space-around',
-              }
-            }>
+            style={{
+              marginTop: 5,
+            }}>
             <Text style={{...FONTS.h3}}>{news?.news_title}</Text>
             {/* <Text style={{color: COLORS.gray, ...FONTS.body3}}>France</Text> */}
 

@@ -24,7 +24,7 @@ export default function CategoryCard({category, containerStyle, navigation}) {
             color: COLORS.white,
             ...FONTS.h2,
           }}>
-          {category?.news_category_name}
+          {category?.news_category_name || category?.title}
         </Text>
       </ImageBackground>
     </TouchableOpacity>

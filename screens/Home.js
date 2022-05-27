@@ -32,8 +32,8 @@ const Home = ({navigation}) => {
   const loading = useSelector(state => state.currentUser.loading);
   const userCurrent = useSelector(state => state.currentUser?.user?.data?.user);
   const tokenID = useSelector(state => state.currentUser.tokenID);
-  // const [isOpen, setIsOpen] = React.useState(false);
-  // const onClose = () => setIsOpen(false);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -233,7 +233,7 @@ const Home = ({navigation}) => {
           classes,
         ]}
         onPress={() => {
-          // setIsOpen(true);
+          setIsOpen(true);
         }}>
         <View
           style={{
@@ -256,7 +256,7 @@ const Home = ({navigation}) => {
             marginLeft: SIZES.padding / 2,
           }}>
           <Text style={{...FONTS.h3, color: COLORS.black, marginLeft: 0}}>
-            {item.subject_class_short_name}
+            {item.subject_class_name}
           </Text>
           <View
             style={{
@@ -275,7 +275,7 @@ const Home = ({navigation}) => {
             <Text
               style={{...FONTS.h4, flex: 1, marginLeft: SIZES.padding / 3}}
               numberOfLines={1}>
-              {item.subject_class_name}
+              {item.classroom}
             </Text>
           </View>
           <View
@@ -310,15 +310,20 @@ const Home = ({navigation}) => {
     return (
       <ScrollView style={styles.container}>
         <Center>
-          {/* <AlertDialog
+          <AlertDialog
             leastDestructiveRef={cancelRef}
-            isOpen={false}
+            isOpen={isOpen}
             onClose={() => {}}>
             <AlertDialog.Content>
-              <AlertDialog.Header></AlertDialog.Header>
+              <AlertDialog.Header>
+                Students are absent.
+              </AlertDialog.Header>
               <AlertDialog.Body>
-                This will remove all data relating to Alex. This action cannot
-                be reversed. Deleted data can not be recovered.
+                <Text>Nguyễn Ngọc Khánh: 1</Text>
+                <Text>Nguyễn Quỳnh Nhật Phương: 2</Text>
+                <Text>Huỳnh Thái Khiêm: 1</Text>
+                <Text>Lê Khánh Dương: 5 </Text>
+
               </AlertDialog.Body>
               <AlertDialog.Footer>
                 <Button.Group space={2}>
@@ -329,13 +334,10 @@ const Home = ({navigation}) => {
                     ref={cancelRef}>
                     Cancel
                   </Button>
-                  <Button colorScheme="danger" onPress={onClose}>
-                    Delete
-                  </Button>
                 </Button.Group>
               </AlertDialog.Footer>
             </AlertDialog.Content>
-          </AlertDialog> */}
+          </AlertDialog>
         </Center>
         {/* Banner */}
         {renderBanner()}
