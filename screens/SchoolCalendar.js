@@ -44,7 +44,7 @@ export default function SchoolCalendar() {
 
   const handleChangeDate = async date => {
     const [start, end] = date;
-
+    // console.log([start, end]);
     if (
       start &&
       end &&
@@ -71,7 +71,7 @@ export default function SchoolCalendar() {
     }
   };
 
-  console.log('timetable ', timetables);
+  // console.log('timetable ', timetables);
 
   const renderTimeTable = () => {
     return (

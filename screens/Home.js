@@ -21,6 +21,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import {useDispatch, useSelector} from 'react-redux';
 import {timeTableApi} from '../api';
 import {BASE_URL_IMAGE} from '../api/axiosClient';
+import DeadlineWrapper from '../component/DeadlineWrapper';
 import Loading from '../component/Loading';
 import {COLORS, FONTS, images, SIZES} from '../constants';
 import {changeLoading, setUser} from '../redux/reducers/currentUser';
@@ -59,32 +60,6 @@ const Home = ({navigation}) => {
     getUser();
   }, []);
 
-  const [deadline, setdeadline] = React.useState([
-    {
-      id: 0,
-      name: 'Android',
-      duration: 3,
-      color: '#FEF5F6',
-    },
-    {
-      id: 1,
-      name: 'SXTK',
-      duration: 5,
-      color: '#F4FDF8',
-    },
-    {
-      id: 2,
-      name: 'Toán rời rạc',
-      duration: 1,
-      color: '#F4FDF8',
-    },
-    {
-      id: 3,
-      name: 'Web design',
-      duration: 4,
-      color: '#FEF5F6',
-    },
-  ]);
   const [data, setdata] = React.useState([]);
 
   const getTodayTimetable = async () => {
@@ -97,75 +72,6 @@ const Home = ({navigation}) => {
     userCurrent && getTodayTimetable();
   }, [userCurrent]);
 
-  // Render
-
-  function renderDeadline(item, index) {
-    var deadline = {};
-
-    if (index == 0) {
-      deadline = {marginLeft: SIZES.padding};
-    }
-
-    return (
-      <TouchableOpacity
-        style={[
-          {
-            justifyContent: 'center',
-            marginHorizontal: SIZES.base,
-            ...deadline,
-          },
-        ]}
-        onPress={() => {
-          // navigation.navigate('Deadline');
-        }}>
-        <View
-          style={[
-            {
-              width: 200,
-              height: 120,
-              marginVertical: 10,
-              backgroundColor: item.color,
-              borderRadius: SIZES.radius,
-            },
-          ]}>
-          <Text
-            style={{
-              marginTop: SIZES.padding / 2,
-              marginLeft: SIZES.padding,
-              color: COLORS.gray,
-            }}>
-            Deadline
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginLeft: SIZES.padding,
-              marginTop: SIZES.padding / 3,
-            }}>
-            <View
-              style={{
-                backgroundColor: item.color == '#FEF5F6' ? 'red' : 'green',
-                width: 10,
-                height: 10,
-                marginRight: 5,
-                borderRadius: 30,
-              }}></View>
-            <Text> {item.duration} days left</Text>
-          </View>
-          <View style={{flex: 1, marginBottom: 10, justifyContent: 'center'}}>
-            <Text
-              style={{
-                marginLeft: SIZES.padding,
-                ...FONTS.h2,
-              }}>
-              {item.name}
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  }
   const renderBanner = () => {
     return (
       <ImageBackground
@@ -394,45 +300,7 @@ const Home = ({navigation}) => {
           />
         </View>
         {/* Deadline */}
-        <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-            }}>
-            <Text
-              style={{
-                marginTop: SIZES.base,
-                marginHorizontal: SIZES.padding,
-                color: COLORS.black,
-                ...FONTS.h2,
-              }}>
-              Deadline
-            </Text>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  marginRight: SIZES.padding,
-                  ...FONTS.h4,
-                  backgroundColor: COLORS.primary,
-                  color: COLORS.white,
-                  paddingHorizontal: 10,
-                  paddingVertical: 2,
-                  borderRadius: 15,
-                }}>
-                See all
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={deadline}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({item, index}) => renderDeadline(item, index)}
-          />
-        </View>
+        <DeadlineWrapper />
       </ScrollView>
     );
   }

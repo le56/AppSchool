@@ -16,7 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {COLORS, FONTS, SIZES} from '../../constants';
 export default function HomeChat() {
-  const API_KEY = 'jrst27v5nx84';
+  const API_KEY = '4geuhnjbdgyb';
   const client = StreamChat.getInstance(API_KEY);
   const user = useSelector(state => state.currentUser.user.data.user);
   const Stack = createStackNavigator();
@@ -27,7 +27,7 @@ export default function HomeChat() {
       await client.connectUser(
         {
           id: `student${user.id}`,
-          name: user.student_email,
+          name: user.email,
           image: `https://nguyenngockhanh.xyz/images/${user.avatar}`,
         },
         client.devToken(`student${user.id}`),
@@ -84,8 +84,8 @@ export default function HomeChat() {
                   Khánh
                 </Text>
               </View>
-              <View style={{flexDirection:'row', alignItems:'center'}}>
-           {/*      <FontAwesome
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                {/*      <FontAwesome
                   name="phone"
                   size={25}
                   color={COLORS.primary}
@@ -95,7 +95,7 @@ export default function HomeChat() {
                   name="info-circle"
                   size={30}
                   color={COLORS.primary}
-                  style={{padding: 5, paddingRight:20}}
+                  style={{padding: 5, paddingRight: 20}}
                 />
               </View>
             </View>

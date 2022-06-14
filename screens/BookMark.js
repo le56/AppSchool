@@ -1,13 +1,14 @@
 import {Divider} from 'native-base';
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  FlatList,
+  // FlatList,
   Image,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {FlatList} from 'native-base';
 import {newsApi} from '../api';
 import CategoryCard from '../component/CategoryCard';
 import CourseCard from '../component/CourseCard';
@@ -194,7 +195,7 @@ export default function BookMark() {
             paddingHorizontal: SIZES.padding,
           }}
           onEndReached={handleLoadMore}
-          onEndReachedThreshold={0}
+          // onEndReachedThreshold={0}
           renderItem={({item, index}) => {
             return (
               <HorizontalCard
