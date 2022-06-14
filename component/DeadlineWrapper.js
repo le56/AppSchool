@@ -7,13 +7,14 @@ import {COLORS, FONTS, SIZES} from '../constants';
 import {getDeadlineTime} from '../utils/getDeadlineTime';
 
 function renderDeadline(item, index, navigation) {
+  // console.warn('iten', item);
   var deadline = {};
 
   if (index == 0) {
     deadline = {marginLeft: SIZES.padding};
   }
-
-  let {time, stringTime} = getDeadlineTime(item.deadline);
+  // console.warn(getDeadlineTime(item.deadline, Date.now()));
+  let {time, stringTime} = getDeadlineTime(item.deadline, Date.now());
   if (time < 0) {
     stringTime = stringTime + ' ago';
   }

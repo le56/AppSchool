@@ -5,24 +5,34 @@ export const getDeadlineTime = (date, date2 = Date.now()) => {
   const deadlineDate = moment.utc(date).tz('Asia/Saigon');
   const diff = moment.duration(deadlineDate.diff(_now), 'milliseconds');
 
-  if (Math.abs(diff.asDays()) >= 1)
+  if (Math.abs(diff.asDays()) >= 1) {
     return {
       time: diff.asDays(),
       stringTime: `${Math.floor(Math.abs(diff.asDays()))} days`,
     };
-  if (Math.abs(diff.asHours() >= 1))
+  }
+  if (Math.abs(diff.asHours() >= 1)) {
     return {
       time: diff.asHours(),
       stringTime: `${Math.floor(Math.abs(diff.asHours()))} hours`,
     };
-  if (Math.abs(diff.asMinutes() >= 1))
+  }
+
+  if (Number(Math.abs(diff.asMinutes()) >= 1)) {
     return {
       time: diff.asMinutes(),
       stringTime: `${Math.floor(Math.abs(diff.asMinutes()))} minutes`,
     };
-  if (Math.abs(diff.asMilliseconds() >= 1))
+  }
+
+  if (Number(Math.abs(diff.asMilliseconds()) >= 1)) {
     return {
       time: diff.asMilliseconds(),
       stringTime: `${Math.floor(Math.abs(diff.asMilliseconds()))} milliseconds`,
     };
+  }
+  return {
+    time: 5,
+    stringTime: `5c milliseconds`,
+  };
 };
