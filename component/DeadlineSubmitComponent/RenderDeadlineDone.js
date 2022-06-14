@@ -50,7 +50,7 @@ const RenderDeadlineDone = ({data, checkPermission}) => {
               }}>
               <Image
                 style={{width: 25, height: 25, marginRight: 5}}
-                source={fileIcons[_file_ext] || imgIcon}
+                source={fileIcons['.' + _file_ext] || imgIcon}
               />
               <Text
                 style={{

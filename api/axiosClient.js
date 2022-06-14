@@ -1,11 +1,11 @@
 import axios from 'axios';
-// export const BASE_URL = 'https://nguyenngockhanh.xyz/api';
-// export const BASE_URL_IMAGE = 'https://nguyenngockhanh.xyz/images';
-// export const BASE_URL_RESOURCE = 'https://nguyenngockhanh.xyz/resource';
+export const BASE_URL = 'https://nguyenngockhanh.xyz/api';
+export const BASE_URL_IMAGE = 'https://nguyenngockhanh.xyz/images';
+export const BASE_URL_RESOURCE = 'https://nguyenngockhanh.xyz/resource';
 
-export const BASE_URL = 'http://192.168.1.10:5000/api';
-export const BASE_URL_IMAGE = 'http://192.168.1.10:5000/images';
-export const BASE_URL_RESOURCE = 'http://192.168.1.10:5000/resource';
+// export const BASE_URL = 'http://192.168.1.10:5000/api';
+// export const BASE_URL_IMAGE = 'http://192.168.1.10:5000/images';
+// export const BASE_URL_RESOURCE = 'http://192.168.1.10:5000/resource';
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,
